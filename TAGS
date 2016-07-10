@@ -7,6 +7,19 @@ main main5,6
 ./Setup.hs,15
 main main1,2
 
+./src/Explore.hs,326
+module Explore Explore3,4
+isOrdered isOrdered10,11
+prop_insert_ordered_vacuous prop_insert_ordered_vacuous13,14
+genList2 genList221,22
+genList2 genList222,23
+genList3 genList325,26
+genList3 genList326,27
+genOrdList genOrdList28,29
+prop_insert prop_insert30,31
+prop_insert prop_insert31,32
+main main35,36
+
 ./src/Lib.hs,65
 module LibLib0,1
 someFunc someFunc4,5
