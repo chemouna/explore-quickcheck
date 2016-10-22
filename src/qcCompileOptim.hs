@@ -76,3 +76,7 @@ instance Arbitrary Expression where
                          (5, liftM2 Minus arbitrary arbitrary)]
 
 -- generator for WState so we can run while for arbitrary input config
+
+instance (Ord a, Arbitrary a, Arbitrary b) => Arbitrary (M.Map a b) where
+  arbitrary = do xvs <- arbitrary
+                 return $ M.fromList xvs
