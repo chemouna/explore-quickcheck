@@ -49,7 +49,6 @@ prop_insert_ordered' x xs = isOrdered (insert x xs) -- this prop fails because t
 
 prop_insert_ordered x xs = isOrdered xs ==> isOrdered (insert x xs)
 
-
 prop_insert_ordered_vacuous x xs =
   collect (length xs) $
   classify (isOrdered xs) "ord" $
@@ -69,6 +68,7 @@ genOrdList = genList3 >>= return . sort
 prop_insert :: Int -> Property
 prop_insert x = forAll genOrdList $ \xs -> isOrdered xs && isOrdered (insert x xs)
 
+-- to have QC work with (ie generate random tests for) values of type a we need only make a an instance of Arbitrary by defining an appropriate arbitrary function for it
 
 return []
 main = $quickCheckAll
