@@ -80,3 +80,5 @@ instance Arbitrary Expression where
 instance (Ord a, Arbitrary a, Arbitrary b) => Arbitrary (M.Map a b) where
   arbitrary = do xvs <- arbitrary
                  return $ M.fromList xvs
+
+-- TODO: continue with https://cseweb.ucsd.edu/classes/wi11/cse230/lectures/quickcheck.html

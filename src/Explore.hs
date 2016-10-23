@@ -70,5 +70,6 @@ prop_insert x = forAll genOrdList $ \xs -> isOrdered xs && isOrdered (insert x x
 
 -- to have QC work with (ie generate random tests for) values of type a we need only make a an instance of Arbitrary by defining an appropriate arbitrary function for it
 
+
 return []
 main = $quickCheckAll
