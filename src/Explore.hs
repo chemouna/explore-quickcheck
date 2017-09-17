@@ -1,13 +1,16 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# LANGUAGE NoMonomorphismRestriction, FlexibleInstances, TypeSynonymInstances #-}
+{-# LANGUAGE DeriveGeneric #-}
 
 module Explore where
 
 import Control.Monad
 import Data.Char
-import Data.List 
+import Data.List
 import Test.QuickCheck
 import Test.QuickCheck.All
+import GHC.Generics
+import Generic.Random.Generic
 
 -- //
 -- quickCheck (\s -> all (`elem` ['a'..'e']) (take5 s))
@@ -37,7 +40,6 @@ isDistinct _ = True
 prop_qsort_distinct = isDistinct . qsort
 
 prop_qsort_distinct_sort xs = (isDistinct xs) ==> qsort xs == sort xs
-
 
 isOrdered (x1:x2:xs) = x1 <= x2 && isOrdered (x2:xs)
 isOrdered _ = True
@@ -75,6 +77,17 @@ prop_sorted_sort xs =
   isOrdered xs ==>
   classify (length xs > 1) "non-trivial" $
   sort xs === xs
+
+data MyType = MyType {
+    foo :: Int
+  , bar :: Bool
+  , baz :: Float
+  } deriving (Show, Generic)
+
+generateMyType1 = generate $ MyType <$> arbitrary <*> arbitrary <*> arbitrary
+
+-- to avoid repeatedly calling arbitrary , using generic-random
+--generateMyType2 = generate (genericArbitrary :: Gen MyType)
 
 
 return []

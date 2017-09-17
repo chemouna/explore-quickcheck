@@ -19,9 +19,11 @@ library
   build-depends:       QuickCheck
                      , base >= 4.7 && < 5
                      , containers >= 0.5.6.2
+                     , generic-random >= 1.0.0.0
+                     , haskell-docs
                      , mtl >= 2.2.1
                      , transformers >= 0.4.2.0
-                     
+                       
   default-language:    Haskell2010
 
 Executable explore-quickcheck-exe
@@ -32,6 +34,7 @@ Executable explore-quickcheck-exe
                      , base
                      , containers >= 0.5.6.2
                      , explore-quickcheck
+                     , generic-random >= 1.0.0.0
                      , mtl >= 2.2.1
                      , transformers >= 0.4.2.0
                      
@@ -45,6 +48,8 @@ test-suite explore-quickcheck-test
                      , base
                      , containers >= 0.5.6.2
                      , explore-quickcheck
+                     , generic-random >= 1.0.0.0
+                     , haskell-docs
                      , hspec
                      , mtl >= 2.2.1
                      , transformers >= 0.4.2.0
