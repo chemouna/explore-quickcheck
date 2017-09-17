@@ -23,7 +23,8 @@ library
                      , haskell-docs
                      , mtl >= 2.2.1
                      , transformers >= 0.4.2.0
-                       
+                     , test-invariant
+                         
   default-language:    Haskell2010
 
 Executable explore-quickcheck-exe

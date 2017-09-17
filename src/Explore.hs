@@ -12,6 +12,7 @@ import Test.QuickCheck.Gen
 import Test.QuickCheck.All
 import GHC.Generics
 import Generic.Random.Generic
+import Test.Invariant
 
 -- //
 -- quickCheck (\s -> all (`elem` ['a'..'e']) (take5 s))
@@ -117,6 +118,11 @@ generateFlexListN n = generate (resize n flexList :: Gen [Int])
 
 generateFlexListScale30 = generate (scale (*33) flexList :: Gen [Int])
 
+prop_commutativeAdd :: Int -> Int -> Bool
+prop_commutativeAdd x y = x + y == y + x
+
+prop_commutativeAdd' :: Int -> Int -> Bool
+prop_commutativeAdd' = commutative (+)
 
 return []
 main = $quickCheckAll
