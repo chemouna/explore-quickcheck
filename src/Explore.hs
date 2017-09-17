@@ -8,6 +8,7 @@ import Control.Monad
 import Data.Char
 import Data.List
 import Test.QuickCheck
+import Test.QuickCheck.Gen
 import Test.QuickCheck.All
 import GHC.Generics
 import Generic.Random.Generic
@@ -26,7 +27,7 @@ prop_qsort_isOrdered xs = isOrdered . qsort
 
 prop_qsort_idempotent xs = qsort (qsort xs) == qsort xs
 
-prop_qsort_min xs = head (qsort xs) == minimum xs 
+prop_qsort_min xs = head (qsort xs) == minimum xs
 
 prop_qsort_nn_min xs = not (null xs) ==> head (qsort xs) == minimum xs
 
@@ -87,7 +88,34 @@ data MyType = MyType {
 generateMyType1 = generate $ MyType <$> arbitrary <*> arbitrary <*> arbitrary
 
 -- to avoid repeatedly calling arbitrary , using generic-random
---generateMyType2 = generate (genericArbitrary :: Gen MyType)
+-- generateMyType2 = generate (genericArbitrary :: Gen MyType)
+
+myList :: Arbitrary a => Gen [a]
+myList = oneof
+  [
+    return []
+  , (:) <$> arbitrary <*> myList
+  ]
+
+myList' :: Arbitrary a => Gen [a]
+myList' = frequency
+  [
+    (1, return [])
+  , (4, (:) <$> arbitrary <*> myList')
+  ]
+
+flexList :: Arbitrary a => Gen [a]
+flexList = sized $ \n ->
+  frequency
+  [
+    (1, return [])
+  , (n, (:) <$> arbitrary <*> flexList)
+  ]
+
+generateFlexList1000 = generate (resize 1000 flexList :: Gen [Int])
+generateFlexListN n = generate (resize n flexList :: Gen [Int])
+
+generateFlexListScale30 = generate (scale (*33) flexList :: Gen [Int])
 
 
 return []
