@@ -5,7 +5,7 @@ module Explore where
 
 import Control.Monad
 import Data.Char
-import Data.List
+import Data.List 
 import Test.QuickCheck
 import Test.QuickCheck.All
 
@@ -69,6 +69,12 @@ prop_insert :: Int -> Property
 prop_insert x = forAll genOrdList $ \xs -> isOrdered xs && isOrdered (insert x xs)
 
 -- to have QC work with (ie generate random tests for) values of type a we need only make a an instance of Arbitrary by defining an appropriate arbitrary function for it
+
+prop_sorted_sort :: [Int] -> Property
+prop_sorted_sort xs =
+  isOrdered xs ==>
+  classify (length xs > 1) "non-trivial" $
+  sort xs === xs
 
 
 return []
